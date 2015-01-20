@@ -2,7 +2,7 @@
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
-define("DB_NAME", "inlog");
+define("DB_NAME", "login");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 session_start();
 
@@ -17,7 +17,7 @@ if (isset($_POST['logout'])) {
 if (isset($_POST["anvnam"])) {
     $anvnam = filter_input(INPUT_POST, 'anvnam', FILTER_SANITIZE_SPECIAL_CHARS);
     $losord = filter_input(INPUT_POST, 'losord', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "SELECT * FROM `inlog` WHERE anvnam='$anvnam' AND losord='$losord'";
+    $sql = "SELECT * FROM `login` WHERE anvnam='$anvnam' AND losord='$losord'";
 //    echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":anvnam", $anvnam);
@@ -30,7 +30,7 @@ if (isset($_POST["anvnam"])) {
 if (isset($_POST["sparalos"])) {
     $nylos = filter_input(INPUT_POST, 'nylos', FILTER_SANITIZE_SPECIAL_CHARS);
     $anvnam = $_SESSION["namn"];
-    $sql = "UPDATE `inlog` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
+    $sql = "UPDATE `login` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
 
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":nylos", $nylos);

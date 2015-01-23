@@ -40,8 +40,38 @@ if (isset($_POST["sparalos"])) {
 }
 //v√§lj IV
 if (isset($_POST["redIV"])) {
-    include 'IV.php';
+//    include 'IV.php';
+    echo "<form method='POST'>"
+    . "<select name='iv'>";
+// $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
+    $sql = "SELECT * FROM iv";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $ivval = $stmt->fetchAll();
+
+    foreach ($ivval as $iv) {
+        echo "<option value=" . $iv["kurs"] . ">" . $iv["kurs"] . "</option>";
+        echo "<br>";
+//                    $stmt = $dbh->prepare($sql);
+//                    $stmt->execute();
+    }
+    echo " </select>"
+    . "<input type='submit' value='V‰lj' name='ivv'>"
+    . "<input type='hidden' value='ivval'>"
+    . "</form>";
+
+    if (isset($_POST["iv"])) {
+
+        $iv = filter_input(INPUT_POST, 'iv', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "UPDATE `inlog` SET `iv`='$iv' WHERE anvnam='" . $_SESSION["namn"] . "'";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":iv", $iv);
+        $stmt->execute();
+        $login = $stmt->fetch();
+        echo "Du har nu valt" . $iv . "som ditt iv val";
+    }
 }
+
 
 //mailhantering
 if (isset($_POST["mail"])) {
@@ -56,6 +86,23 @@ if (isset($_POST["mail"])) {
         $sql = "UPDATE `inlog` SET `mail`='$mail' WHERE anvnam='" . $_SESSION["namn"] . "'";
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":mail", $mail);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
+}
+//l‰gg till klass
+if (isset($_POST["klass"])) {
+    $_SESSION["inlog"] = 1;
+    echo "<form method='POST'>"
+    . "<input type='text' name='klass'>"
+    . "<input type='submit' value='V√§lj' name='valjk'>"
+    . "</form>";
+
+    if (isset($_POST["valjk"])) {
+        $klass = filter_input(INPUT_POST, 'klass', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "UPDATE `inlog` SET `klass`='$klass' WHERE anvnam='" . $_SESSION["namn"] . "'";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":klass", $klass);
         $stmt->execute();
         $login = $stmt->fetch();
     }
@@ -84,6 +131,10 @@ if (isset($_POST["mail"])) {
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 
             echo "<form method='POST'><input type='submit' value='Byt l√∂senord' name='bytlos'></form>";
+            echo "<form method='POST'>"
+            . "<input type = 'submit' value = 'Mejlhantering' name='mail'>"
+            . "<input type = 'submit' value = 'Klasshantering' name='klass'>"
+            . "</form>";
             if (isset($_POST["bytlos"])) {
                 echo "Ange nytt l√∂senord <form method='POST'><input type='text' name='nylos'>"
                 . "<input type='submit' value='Spara' name='sparalos'></form>";
@@ -96,11 +147,10 @@ if (isset($_POST["mail"])) {
         <p>L√∂senord:</p><input type = 'password' name = 'losord' required>
         <input type = 'submit' value = 'Logga in'>
         </form>";
+            echo "<form method='POST'> <input type = 'submit' value = 'Glˆmt Lˆsenord?' name='glomt'></form>";
         }
         ?>
 
-        <form method="POST">
-            <input type = 'submit' value = 'Mejlhantering' name='mail'>
-        </form>
+
     </body>
 </html>

@@ -6,7 +6,7 @@ define("DB_NAME", "login");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 session_start();
 
-//$_SESSION["inlog"] = 0;
+$_SESSION["inlog"] = 0;
 
 
 if (isset($_POST['logout'])) {
@@ -56,7 +56,7 @@ if (isset($_POST["redIV"])) {
 //                    $stmt->execute();
     }
     echo " </select>"
-    . "<input type='submit' value='V�lj' name='ivv'>"
+    . "<input type='submit' value='V�lj' name='ivv'>"
     . "<input type='hidden' value='ivval'>"
     . "</form>";
 
@@ -90,7 +90,7 @@ if (isset($_POST["mail"])) {
         $login = $stmt->fetch();
     }
 }
-//l�gg till klass
+//l�gg till klass
 if (isset($_POST["klass"])) {
     $_SESSION["inlog"] = 1;
     echo "<form method='POST'>"
@@ -105,6 +105,32 @@ if (isset($_POST["klass"])) {
         $stmt->bindParam(":klass", $klass);
         $stmt->execute();
         $login = $stmt->fetch();
+    }
+}
+
+//glömt lösernord
+if (isset($_POST["glomt"])) {
+    echo "Ditt lösernord kommer skickas på mail. <br>Ange din mail som du har kopplat till ditt inlog <form method='POST'><input type='text' name='glomtmail'>"
+    . "<input type='submit' value='Skicka' name='skicka'></form>";
+    if (isset($_POST["skicka"])) {
+        $glomtmail = filter_input(INPUT_POST, 'glomtmail', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "SELECT `losord` FROM `inlog` WHERE `mail`='$glomtmail'";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":glomtmail", $glomtmail);
+        $stmt->execute();
+        $glomt = $stmt->fetch();
+
+        //skicka mailet, gör det sist!!!
+    }
+}
+//håll mig inloggad
+if (isset($_POST["checkbox"])) {
+    $checkbox = isset($_POST['checkbox']) ? 1 : 0;
+
+    if ($checkbox == 1) {
+        $_COOKIE['always_online'] = '1';
+        $_COOKIE[1] = id för den som är inloggad;
+        
     }
 }
 ?>
@@ -144,10 +170,11 @@ if (isset($_POST["klass"])) {
         if ($_SESSION["inlog"] == 0) {
             echo "<form method = 'POST'>
         <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
-        <p>Lösenord:</p><input type = 'password' name = 'losord' required>
+        <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>
+        <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
         <input type = 'submit' value = 'Logga in'>
         </form>";
-            echo "<form method='POST'> <input type = 'submit' value = 'Gl�mt L�senord?' name='glomt'></form>";
+            echo "<form method='POST'> <input type = 'submit' value = 'Gl�mt L�senord?' name='glomt'></form>";
         }
         ?>
 

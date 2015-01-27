@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 jan 2015 kl 14:48
+-- Tid vid skapande: 27 jan 2015 kl 13:56
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -66,6 +66,30 @@ INSERT INTO `iv` (`id`, `kurs`) VALUES
 (1, 'matematik5c'),
 (2, 'biologi2');
 
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `login`
+--
+
+DROP TABLE IF EXISTS `login`;
+CREATE TABLE IF NOT EXISTS `login` (
+`id` int(11) NOT NULL,
+  `namn` varchar(20) NOT NULL,
+  `enamn` varchar(30) NOT NULL,
+  `anvnam` varchar(20) NOT NULL,
+  `losord` varchar(20) NOT NULL,
+  `IV` varchar(20) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumpning av Data i tabell `login`
+--
+
+INSERT INTO `login` (`id`, `namn`, `enamn`, `anvnam`, `losord`, `IV`) VALUES
+(1, '', '', 'ida', 'ida', ''),
+(2, '', '', 'per', 'per', '');
+
 --
 -- Index för dumpade tabeller
 --
@@ -83,6 +107,12 @@ ALTER TABLE `iv`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Index för tabell `login`
+--
+ALTER TABLE `login`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT för dumpade tabeller
 --
 
@@ -95,6 +125,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT för tabell `iv`
 --
 ALTER TABLE `iv`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT för tabell `login`
+--
+ALTER TABLE `login`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

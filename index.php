@@ -24,13 +24,13 @@ if (isset($_POST["anvnam"])) {
     $stmt->bindParam(":losord", $losord);
     $stmt->execute();
     $login = $stmt->fetch();
-    var_dump($login);
+//    var_dump($login);
     if (!empty($login)) {
-        
+
         $_SESSION["inlog"] = 1;
         $_SESSION["namn"] = $login["anvnam"];
         $_SESSION["id"] = $login["id"];
-        var_dump($_SESSION);
+//        var_dump($_SESSION);
     }
 }
 
@@ -138,8 +138,26 @@ if (isset($_POST["checkbox"])) {
 
     if ($checkbox == 1) {
         $_COOKIE['always_online'] = '1';
-//        $_COOKIE[1] =  
-          }
+        $_COOKIE['id'] = $login["id"];
+    }
+}
+if ($_COOKIE['always_online'] == 1) {
+    $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
+//    echo $sql;
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $always_online = $stmt->fetch();
+
+//    var_dump($login);
+    if (!empty($always_online)) {
+
+        $_SESSION["inlog"] = 1;
+        $_SESSION["namn"] = $login["anvnam"];
+        $_SESSION["id"] = $login["id"];
+//        var_dump($_SESSION);
+    }
+} else {
+    
 }
 ?>
 

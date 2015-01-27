@@ -24,7 +24,16 @@ if (isset($_POST["anvnam"])) {
     $stmt->bindParam(":losord", $losord);
     $stmt->execute();
     $login = $stmt->fetch();
+    var_dump($login);
+    if (!empty($login)) {
+        
+        $_SESSION["inlog"] = 1;
+        $_SESSION["namn"] = $login["anvnam"];
+        $_SESSION["id"] = $login["id"];
+        var_dump($_SESSION);
+    }
 }
+
 
 //byt lösenord
 if (isset($_POST["sparalos"])) {
@@ -129,9 +138,8 @@ if (isset($_POST["checkbox"])) {
 
     if ($checkbox == 1) {
         $_COOKIE['always_online'] = '1';
-        $_COOKIE[1] = id för den som är inloggad;
-        
-    }
+//        $_COOKIE[1] =  
+          }
 }
 ?>
 
@@ -144,15 +152,8 @@ if (isset($_POST["checkbox"])) {
     <body>
 
         <?php
-        if (!empty($login)) {
-            $_SESSION["inlog"] = 1;
-            $_SESSION["namn"] = $anvnam;
-            echo '<p>Välkommen, du är nu inloggad!</p>';
-        } else {
-            echo 'Vänligen logga in med ett registrerat användarnamn';
-        }
-
         if ($_SESSION["inlog"] == 1) {
+            echo '<p>Välkommen, du är nu inloggad!</p>';
             echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 

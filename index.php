@@ -99,7 +99,7 @@ if (isset($_POST["mail"])) {
         $login = $stmt->fetch();
     }
 }
-//l�gg till klass
+//lägg till klass
 if (isset($_POST["klass"])) {
     $_SESSION["inlog"] = 1;
     echo "<form method='POST'>"

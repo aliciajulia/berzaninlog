@@ -149,22 +149,15 @@ if ($_COOKIE['always_online'] == 1) {
     $always_online = $stmt->fetch();
 
 //    var_dump($login);
-    if (!empty($always_online)) {
+    if (!empty($always_online) ) {
 
         $_SESSION["inlog"] = 1;
         $_SESSION["namn"] = $login["anvnam"];
         $_SESSION["id"] = $login["id"];
 //        var_dump($_SESSION);
     }
-} else {
-    echo "<form method = 'POST'>
-        <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
-        <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>
-        <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
-        <input type = 'submit' value = 'Logga in'>
-        </form>";
-    echo "<form method='POST'> <input type = 'submit' value = 'Glömt Lösenord?' name='glomt'></form>";
-}
+} 
+
 ?>
 
 <!DOCTYPE html>
@@ -192,15 +185,15 @@ if ($_COOKIE['always_online'] == 1) {
             }
             echo "<form method='POST'><input type='submit' value='Välj IV' name='redIV'></form>";
         }
-//        if ($_SESSION["inlog"] == 0) {
-//            echo "<form method = 'POST'>
-//        <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
-//        <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>
-//        <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
-//        <input type = 'submit' value = 'Logga in'>
-//        </form>";
-//            echo "<form method='POST'> <input type = 'submit' value = 'Gl�mt L�senord?' name='glomt'></form>";
-//        }
+        if ($_SESSION["inlog"] == 0) {
+            echo "<form method = 'POST'>
+        <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
+        <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>
+        <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
+        <input type = 'submit' value = 'Logga in'>
+        </form>";
+            echo "<form method='POST'> <input type = 'submit' value = 'Gl�mt L�senord?' name='glomt'></form>";
+        }
         ?>
 
 

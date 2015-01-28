@@ -137,11 +137,12 @@ if (isset($_POST["checkbox"])) {
     $checkbox = isset($_POST['checkbox']) ? 1 : 0;
 
     if ($checkbox == 1) {
-        $_COOKIE['always_online'] = '1';
+        $_COOKIE['always_online'] = 1;
         $_COOKIE['id'] = $login["id"];
+        var_dump($_COOKIE);
     }
 }
-if ($_COOKIE['always_online'] == 1) {
+if ($_COOKIE['always_online'] = 1) {
     $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
 //    echo $sql;
     $stmt = $dbh->prepare($sql);
@@ -192,7 +193,7 @@ if ($_COOKIE['always_online'] == 1) {
         <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
         <input type = 'submit' value = 'Logga in'>
         </form>";
-            echo "<form method='POST'> <input type = 'submit' value = 'Gl�mt L�senord?' name='glomt'></form>";
+            echo "<form method='POST'> <input type = 'submit' value = 'Glömt Lösenord?' name='glomt'></form>";
         }
         ?>
 

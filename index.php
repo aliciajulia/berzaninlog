@@ -11,6 +11,7 @@ $_SESSION["inlog"] = 0;
 
 if (isset($_POST['logout'])) {
     $_SESSION["inlog"] = 0;
+    $checkbox = 0;
 }
 
 
@@ -137,28 +138,37 @@ if (isset($_POST["checkbox"])) {
     $checkbox = isset($_POST['checkbox']) ? 1 : 0;
 
     if ($checkbox == 1) {
-        $_COOKIE['always_online'] = 1;
-        $_COOKIE['id'] = $login["id"];
+        setcookie("always_online", 1);
+//        $_COOKIE['always_online'] = 1;
+        setcookie("id", $login["id"]);
         var_dump($_COOKIE);
     }
 }
-if ($_COOKIE['always_online'] = 1) {
-    $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
+if (isset($_COOKIE['always_online'])) {
+    if ($_COOKIE['always_online'] == 1) {
+        $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
 //    echo $sql;
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $always_online = $stmt->fetch();
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        $always_online = $stmt->fetch();
 
 //    var_dump($login);
-    if (!empty($always_online) ) {
+        if (!empty($always_online)) {
 
-        $_SESSION["inlog"] = 1;
-        $_SESSION["namn"] = $login["anvnam"];
-        $_SESSION["id"] = $login["id"];
+            $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
+//    echo $sql;
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindParam(":anvnam", $anvnam);
+            $stmt->bindParam(":losord", $losord);
+            $stmt->execute();
+            $login = $stmt->fetch();
+            $_SESSION["inlog"] = 1;
+            $_SESSION["namn"] = $login["anvnam"];
+            $_SESSION["id"] = $login["id"];
 //        var_dump($_SESSION);
+        }
     }
-} 
-
+}
 ?>
 
 <!DOCTYPE html>

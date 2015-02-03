@@ -8,13 +8,13 @@ session_start();
 
 $_SESSION["inlog"] = 0;
 
-
+//logga ut
 if (isset($_POST['logout'])) {
     $_SESSION["inlog"] = 0;
     setcookie("always_online", "", time() - 3600);
 }
 
-
+//logga in
 if (isset($_POST["anvnam"])) {
     $anvnam = filter_input(INPUT_POST, 'anvnam', FILTER_SANITIZE_SPECIAL_CHARS);
     $losord = filter_input(INPUT_POST, 'losord', FILTER_SANITIZE_SPECIAL_CHARS);

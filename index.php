@@ -11,7 +11,7 @@ $_SESSION["inlog"] = 0;
 
 if (isset($_POST['logout'])) {
     $_SESSION["inlog"] = 0;
-    $checkbox = 0;
+    setcookie("always_online", "", time() - 3600);
 }
 
 

@@ -10,8 +10,9 @@ $_SESSION["inlog"] = 0;
 
 //logga ut
 if (isset($_POST['logout'])) {
-    $_SESSION["inlog"] = 0;
-    setcookie("always_online", "", time() - 3600);
+//    $_SESSION["inlog"] = 0;
+//    setcookie("always_online", "", time() - 3600);
+    
 }
 
 //logga in
@@ -37,17 +38,19 @@ if (isset($_POST["anvnam"])) {
 
 
 //byt lösenord
-if (isset($_POST["sparalos"])) {
-    $nylos = filter_input(INPUT_POST, 'nylos', FILTER_SANITIZE_SPECIAL_CHARS);
-    $anvnam = $_SESSION["namn"];
-    $sql = "UPDATE `inlog` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
-
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":nylos", $nylos);
-    $stmt->bindParam(":anvnam", $anvnam);
-    $stmt->execute();
-    $login = $stmt->fetch();
-}
+//if (isset($_POST["sparalos"])) {
+//    $nylos = filter_input(INPUT_POST, 'nylos', FILTER_SANITIZE_SPECIAL_CHARS);
+//    $anvnam = $_SESSION["namn"];
+//    $sql = "UPDATE `inlog` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
+//
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->bindParam(":nylos", $nylos);
+//    $stmt->bindParam(":anvnam", $anvnam);
+//    $stmt->execute();
+//    $login = $stmt->fetch();
+    
+    
+//}
 //välj IV
 if (isset($_POST["redIV"])) {
 //    include 'IV.php';
@@ -168,14 +171,16 @@ if (isset($_COOKIE['always_online'])) {
             echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 
-            echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos'></form>";
+            echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos' ></form>";
             echo "<form method='POST'>"
             . "<input type = 'submit' value = 'Mejlhantering' name='mail'>"
             . "</form>";
-            if (isset($_POST["bytlos"])) {
-                echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
-                . "<input type='submit' value='Spara' name='sparalos'></form>";
-            }
+//            if (isset($_POST["bytlos"])) {
+//                echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
+//                . "<input type='submit' value='Spara' name='sparalos'></form>";
+                
+                
+//            }
             echo "<form method='POST'><input type='submit' value='Välj IV' name='redIV'></form>";
         }
         if ($_SESSION["inlog"] == 0) {
@@ -192,3 +197,5 @@ if (isset($_COOKIE['always_online'])) {
 
     </body>
 </html>
+
+gör en test session där session[anvmann]finns och ändra alla session[inlog] är session[anvnamn]

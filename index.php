@@ -100,23 +100,6 @@ if (isset($_POST["mail"])) {
         $login = $stmt->fetch();
     }
 }
-//lägg till klass
-if (isset($_POST["klass"])) {
-    $_SESSION["inlog"] = 1;
-    echo "<form method='POST'>"
-    . "<input type='text' name='klass'>"
-    . "<input type='submit' value='Välj' name='valjk'>"
-    . "</form>";
-
-    if (isset($_POST["valjk"])) {
-        $klass = filter_input(INPUT_POST, 'klass', FILTER_SANITIZE_SPECIAL_CHARS);
-        $sql = "UPDATE `inlog` SET `klass`='$klass' WHERE anvnam='" . $_SESSION["namn"] . "'";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindParam(":klass", $klass);
-        $stmt->execute();
-        $login = $stmt->fetch();
-    }
-}
 
 //glömt lösernord
 if (isset($_POST["glomt"])) {
@@ -188,7 +171,6 @@ if (isset($_COOKIE['always_online'])) {
             echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos'></form>";
             echo "<form method='POST'>"
             . "<input type = 'submit' value = 'Mejlhantering' name='mail'>"
-            . "<input type = 'submit' value = 'Klasshantering' name='klass'>"
             . "</form>";
             if (isset($_POST["bytlos"])) {
                 echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"

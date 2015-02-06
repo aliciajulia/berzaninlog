@@ -1,7 +1,14 @@
 <?php
-if (isset($_POST["sparalos"])) {
+
+define("DB_SERVER", "localhost");
+define("DB_USER", "root");
+define("DB_PASSWORD", "");
+define("DB_NAME", "login");
+$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
+session_start();
+
     $nylos = filter_input(INPUT_POST, 'nylos', FILTER_SANITIZE_SPECIAL_CHARS);
-    $anvnam = $_SESSION["namn"];
+    $anvnam = $_SESSION["anvnamn"];
     $sql = "UPDATE `inlog` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
 
     $stmt = $dbh->prepare($sql);
@@ -9,5 +16,7 @@ if (isset($_POST["sparalos"])) {
     $stmt->bindParam(":anvnam", $anvnam);
     $stmt->execute();
     $login = $stmt->fetch();
-}
+
+
+header ('Location: index.php');
 

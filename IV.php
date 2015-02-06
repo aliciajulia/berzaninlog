@@ -1,5 +1,12 @@
 
-
+<?php
+define("DB_SERVER", "localhost");
+define("DB_USER", "root");
+define("DB_PASSWORD", "");
+define("DB_NAME", "login");
+$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +16,7 @@
     </head>
     <body>
         <!--Välj iv val-->
-        <form method="POST">
+        <form method="POST" action = "doIv.php">
             <select name="iv">
                 <?php
                 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);

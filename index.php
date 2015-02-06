@@ -7,7 +7,7 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 session_start();
 
 //$_SESSION["inlog"] = 0;
-$_SESSION["anvnamn"] = NULL;
+//$_SESSION["anvnamn"] = NULL;
 //logga ut
 if (isset($_POST['logout'])) {
 //    $_SESSION["anvnamn"] = NULL;
@@ -31,7 +31,7 @@ if (isset($_POST["anvnam"])) {
     if (!empty($login)) {
 
 //        $_SESSION["inlog"] = 1;
-        $_SESSION["namn"] = $login["anvnam"];
+        $_SESSION["anvnamn"] = $login["anvnam"];
         $_SESSION["id"] = $login["id"];
 //        var_dump($_SESSION);
     }
@@ -53,58 +53,58 @@ if (isset($_POST["anvnam"])) {
     
 //}
 //välj IV
-if (isset($_POST["redIV"])) {
-//    include 'IV.php';
-    echo "<form method='POST'>"
-    . "<select name='iv'>";
-// $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
-    $sql = "SELECT * FROM iv";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $ivval = $stmt->fetchAll();
-
-    foreach ($ivval as $iv) {
-        echo "<option value=" . $iv["kurs"] . ">" . $iv["kurs"] . "</option>";
-        echo "<br>";
-//                    $stmt = $dbh->prepare($sql);
-//                    $stmt->execute();
-    }
-    echo " </select>"
-    . "<input type='submit' value='Välj' name='ivv'>"
-    . "<input type='hidden' value='ivval'>"
-    . "</form>";
-
-    if (isset($_POST["iv"])) {
-
-        $iv = filter_input(INPUT_POST, 'iv', FILTER_SANITIZE_SPECIAL_CHARS);
-        $sql = "UPDATE `inlog` SET `iv`='$iv' WHERE anvnam='" . $_SESSION["namn"] . "'";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindParam(":iv", $iv);
-        $stmt->execute();
-        $login = $stmt->fetch();
-        echo "Du har nu valt" . $iv . "som ditt iv val";
-    }
-}
+//if (isset($_POST["redIV"])) {
+////    include 'IV.php';
+//    echo "<form method='POST'>"
+//    . "<select name='iv'>";
+//// $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
+//    $sql = "SELECT * FROM iv";
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->execute();
+//    $ivval = $stmt->fetchAll();
+//
+//    foreach ($ivval as $iv) {
+//        echo "<option value=" . $iv["kurs"] . ">" . $iv["kurs"] . "</option>";
+//        echo "<br>";
+////                    $stmt = $dbh->prepare($sql);
+////                    $stmt->execute();
+//    }
+//    echo " </select>"
+//    . "<input type='submit' value='Välj' name='ivv'>"
+//    . "<input type='hidden' value='ivval'>"
+//    . "</form>";
+//
+//    if (isset($_POST["iv"])) {
+//
+//        $iv = filter_input(INPUT_POST, 'iv', FILTER_SANITIZE_SPECIAL_CHARS);
+//        $sql = "UPDATE `inlog` SET `iv`='$iv' WHERE anvnam='" . $_SESSION["namn"] . "'";
+//        $stmt = $dbh->prepare($sql);
+//        $stmt->bindParam(":iv", $iv);
+//        $stmt->execute();
+//        $login = $stmt->fetch();
+//        echo "Du har nu valt" . $iv . "som ditt iv val";
+//    }
+//}
 
 
 //mailhantering
-if (isset($_POST["mail"])) {
-    $_SESSION["anvnamn"] != NULL;
-    
-    echo "<form method='POST'>"
-    . "<input type='text' name='mail'>"
-    . "<input type='submit' value='Välj' name='valj'>"
-    . "</form>";
-
-    if (isset($_POST["valj"])) {
-        $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_SPECIAL_CHARS);
-        $sql = "UPDATE `inlog` SET `mail`='$mail' WHERE anvnam='" . $_SESSION["namn"] . "'";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindParam(":mail", $mail);
-        $stmt->execute();
-        $login = $stmt->fetch();
-    }
-}
+//if (isset($_POST["mail"])) {
+//    $_SESSION["anvnamn"] != NULL;
+//    
+//    echo "<form method='POST'>"
+//    . "<input type='text' name='mail'>"
+//    . "<input type='submit' value='Välj' name='valj'>"
+//    . "</form>";
+//
+//    if (isset($_POST["valj"])) {
+//        $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_SPECIAL_CHARS);
+//        $sql = "UPDATE `inlog` SET `mail`='$mail' WHERE anvnam='" . $_SESSION["namn"] . "'";
+//        $stmt = $dbh->prepare($sql);
+//        $stmt->bindParam(":mail", $mail);
+//        $stmt->execute();
+//        $login = $stmt->fetch();
+//    }
+//}
 
 //glömt lösernord
 if (isset($_POST["glomt"])) {
@@ -173,18 +173,17 @@ if (isset($_COOKIE['always_online'])) {
             echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 
-            echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos' ></form>";
-            echo "<a href=bytlLos.php>Byt Lösenord</a>";
-            echo "<form method='POST'>"
-            . "<input type = 'submit' value = 'Mejlhantering' name='mail'>"
-            . "</form>";
+//            echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos' ></form>";
+            echo "<a href=bytLos.php>Byt Lösenord</a><br>";
+            
+            echo "<a href=mail.php>Mailhantering</a><br>";
 //            if (isset($_POST["bytlos"])) {
 //                echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
 //                . "<input type='submit' value='Spara' name='sparalos'></form>";
                 
                 
 //            }
-            echo "<form method='POST'><input type='submit' value='Välj IV' name='redIV'></form>";
+            echo "<a href=IV.php>Välj IV</a>";
         }
         if (!$_SESSION["anvnamn"]) {
             echo "<form method = 'POST'>
@@ -200,5 +199,5 @@ if (isset($_COOKIE['always_online'])) {
 
     </body>
 </html>
-
-gör en test session där session[anvmann] finns och ändra alla session[inlog] är session[anvnamn]
+<!--
+gör en test session där session[anvmann] finns och ändra alla session[inlog] är session[anvnamn]-->

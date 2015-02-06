@@ -2,7 +2,7 @@
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
-define("DB_NAME", "login");
+define("DB_NAME", "berzanapp");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 session_start();
 
@@ -20,7 +20,7 @@ if (isset($_POST['logout'])) {
 if (isset($_POST["anvnam"])) {
     $anvnam = filter_input(INPUT_POST, 'anvnam', FILTER_SANITIZE_SPECIAL_CHARS);
     $losord = filter_input(INPUT_POST, 'losord', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "SELECT * FROM `inlog` WHERE anvnam='$anvnam' AND losord='$losord'";
+    $sql = "SELECT * FROM `users` WHERE anvnamn='$anvnam' AND losenord='$losord'";
 //    echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":anvnam", $anvnam);
@@ -112,7 +112,7 @@ if (isset($_POST["glomt"])) {
     . "<input type='submit' value='Skicka' name='skicka'></form>";
     if (isset($_POST["skicka"])) {
         $glomtmail = filter_input(INPUT_POST, 'glomtmail', FILTER_SANITIZE_SPECIAL_CHARS);
-        $sql = "SELECT `losord` FROM `inlog` WHERE `mail`='$glomtmail'";
+        $sql = "SELECT `losenord` FROM `users` WHERE `mail`='$glomtmail'";
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":glomtmail", $glomtmail);
         $stmt->execute();
@@ -128,13 +128,13 @@ if (isset($_POST["checkbox"])) {
     if ($checkbox == 1) {
         setcookie("always_online", 1);
 //        $_COOKIE['always_online'] = 1;
-        setcookie("id", $login["id"]);
+        setcookie("anvnamn", $login["anvnam"]);
         var_dump($_COOKIE);
     }
 }
 if (isset($_COOKIE['always_online'])) {
     if ($_COOKIE['always_online'] == 1) {
-        $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
+        $sql = "SELECT * FROM `users` WHERE anvnamn='" . $_COOKIE['anvnamn'] . "'";
 //    echo $sql;
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
@@ -143,7 +143,7 @@ if (isset($_COOKIE['always_online'])) {
 //    var_dump($login);
         if (!empty($always_online)) {
 
-            $sql = "SELECT * FROM `inlog` WHERE id='" . $_COOKIE['id'] . "'";
+            $sql = "SELECT * FROM `user` WHERE anvnamn='" . $_COOKIE['anvnamn'] . "'";
 //    echo $sql;
             $stmt = $dbh->prepare($sql);
             $stmt->bindParam(":anvnam", $anvnam);

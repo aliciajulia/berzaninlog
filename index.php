@@ -10,7 +10,7 @@ session_start();
 $_SESSION["anvnamn"] = NULL;
 //logga ut
 if (isset($_POST['logout'])) {
-    $_SESSION["anvnamn"] = NULL;
+//    $_SESSION["anvnamn"] = NULL;
 //    $_SESSION["inlog"] = 0;
 //    setcookie("always_online", "", time() - 3600);
     
@@ -70,7 +70,7 @@ if (isset($_POST["redIV"])) {
 //                    $stmt->execute();
     }
     echo " </select>"
-    . "<input type='submit' value='V�lj' name='ivv'>"
+    . "<input type='submit' value='Välj' name='ivv'>"
     . "<input type='hidden' value='ivval'>"
     . "</form>";
 
@@ -89,7 +89,8 @@ if (isset($_POST["redIV"])) {
 
 //mailhantering
 if (isset($_POST["mail"])) {
-    $_SESSION["inlog"] = 1;
+    $_SESSION["anvnamn"] != NULL;
+    
     echo "<form method='POST'>"
     . "<input type='text' name='mail'>"
     . "<input type='submit' value='Välj' name='valj'>"
@@ -149,7 +150,7 @@ if (isset($_COOKIE['always_online'])) {
             $stmt->bindParam(":losord", $losord);
             $stmt->execute();
             $login = $stmt->fetch();
-            $_SESSION["inlog"] = 1;
+       
             $_SESSION["namn"] = $login["anvnam"];
             $_SESSION["id"] = $login["id"];
 //        var_dump($_SESSION);
@@ -167,12 +168,13 @@ if (isset($_COOKIE['always_online'])) {
     <body>
 
         <?php
-        if ($_SESSION["inlog"] == 1) {
+        if ($_SESSION["anvnamn"]) {
             echo '<p>Välkommen, du är nu inloggad!</p>';
             echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 
             echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos' ></form>";
+            echo "<a href=bytlLos.php>Byt Lösenord</a>";
             echo "<form method='POST'>"
             . "<input type = 'submit' value = 'Mejlhantering' name='mail'>"
             . "</form>";
@@ -184,7 +186,7 @@ if (isset($_COOKIE['always_online'])) {
 //            }
             echo "<form method='POST'><input type='submit' value='Välj IV' name='redIV'></form>";
         }
-        if ($_SESSION["inlog"] == 0) {
+        if (!$_SESSION["anvnamn"]) {
             echo "<form method = 'POST'>
         <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
         <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>

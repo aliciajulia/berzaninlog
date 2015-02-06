@@ -6,10 +6,11 @@ define("DB_NAME", "login");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 session_start();
 
-$_SESSION["inlog"] = 0;
-
+//$_SESSION["inlog"] = 0;
+$_SESSION["anvnamn"] = NULL;
 //logga ut
 if (isset($_POST['logout'])) {
+    $_SESSION["anvnamn"] = NULL;
 //    $_SESSION["inlog"] = 0;
 //    setcookie("always_online", "", time() - 3600);
     
@@ -29,7 +30,7 @@ if (isset($_POST["anvnam"])) {
 //    var_dump($login);
     if (!empty($login)) {
 
-        $_SESSION["inlog"] = 1;
+//        $_SESSION["inlog"] = 1;
         $_SESSION["namn"] = $login["anvnam"];
         $_SESSION["id"] = $login["id"];
 //        var_dump($_SESSION);
@@ -198,4 +199,4 @@ if (isset($_COOKIE['always_online'])) {
     </body>
 </html>
 
-gör en test session där session[anvmann]finns och ändra alla session[inlog] är session[anvnamn]
+gör en test session där session[anvmann] finns och ändra alla session[inlog] är session[anvnamn]

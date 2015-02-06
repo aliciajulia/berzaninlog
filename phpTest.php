@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION["anvnamn"] = 'ida';
+$_SESSION["anvnamn"] = 'idaekb123';
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

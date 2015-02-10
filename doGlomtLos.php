@@ -8,7 +8,7 @@ if (isset($_POST["glomt"])) {
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":glomtmail", $glomtmail);
         $stmt->execute();
-        $glomt = $stmt->fetch();
+        $glomt = $stmt->fetchAll();
 
         //skicka mailet, gör det sist!!!
     }

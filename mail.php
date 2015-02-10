@@ -3,7 +3,7 @@
     . "<input type='email' name='mail'>"
     . "<input type='submit' value='Välj' name='valj'>"
     . "</form>";
-    
+     echo '<a href=index.php>tillbaka</a>';
     
 /* 
  * To change this license header, choose License Headers in Project Properties.

@@ -34,5 +34,6 @@ session_start();
             <input type='submit' value='Välj' name='iv'>
             <input type='hidden' value='ivval'>
         </form>
+         <a href=index.php>tillbaka</a>
     </body>
 </html>

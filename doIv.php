@@ -10,7 +10,7 @@ session_start();
 // if (isset($_POST["iv"])) {
 
         $iv = filter_input(INPUT_POST, 'iv', FILTER_SANITIZE_SPECIAL_CHARS);
-        $sql = "UPDATE `users` SET `iv`='$iv' WHERE anvnamn='" . $_SESSION["namn"] . "'";
+        $sql = "UPDATE `users` SET `iv`='$iv' WHERE anvnamn='" . $_SESSION["anvnamn"] . "'";
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":iv", $iv);
         $stmt->execute();

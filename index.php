@@ -163,10 +163,11 @@ if (isset($_COOKIE["always_online"])) {
     <body>
 
         <?php
-        if ($_SESSION["anvnamn"]) {
+        if ($_SESSION["anvnamn"] != NULL) {
             echo '<p>Välkommen, du är nu inloggad!</p>';
             echo "<p>Du är nu inloggad som " . $_SESSION["anvnamn"] . "!</p>";
-            echo "<form method='POST' action='doLogOut.php'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
+//            echo "<form method='POST' action='doLogOut.php'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
+            echo "<a href=doLogOut.php>Logga ut</a><br>";
 
 //            echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos' ></form>";
             echo "<a href=bytLos.php>Byt Lösenord</a><br>";
@@ -176,21 +177,20 @@ if (isset($_COOKIE["always_online"])) {
 //                echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
 //                . "<input type='submit' value='Spara' name='sparalos'></form>";
 //            }
-            echo "<a href=IV.php>Välj IV</a>";
+            echo "<a href=IV.php>Välj IV</a><br>";
         }
-        if (!$_SESSION["anvnamn"]) {
-            echo "<form method = 'POST'>
+        if ($_SESSION["anvnamn"] == NULL) {
+            echo "<form method = 'POST' action='doLogIn.php'>
         <p>Användarnamn:</p> <input type = 'text' name = 'anvnamn' required>
         <p>Lösenord:</p><input type = 'password' name = 'losord' required><br>
         <input type='checkbox' name='checkbox'> Håll mig inloggad<br>
         <input type = 'submit' value = 'Logga in'>
         </form>";
-            echo "<form method='POST'> <input type = 'submit' value = 'Glömt Lösenord?' name='glomt'></form>";
+//            echo "<form method='POST'> <input type = 'submit' value = 'Glömt Lösenord?' name='glomt'></form>";
+            echo "<a href=mail.php>Glömt Lösenord</a><br>";
         }
         ?>
 
 
     </body>
 </html>
-<!--
-gör en test session där session[anvmann] finns och ändra alla session[inlog] är session[anvnamn]-->
